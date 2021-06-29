@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd">
+
+    <changeSet id="20210628194600-001" author="matheus.jagi">
+        <createTable tableName="tarefa">
+            <column name="id" type="int">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="titulo" type="varchar(100)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="descricao" type="text">
+                <constraints nullable="false"/>
+            </column>
+            <column name="data_inicio_prevista" type="date">
+                <constraints nullable="false"/>
+            </column>
+            <column name="data_termino_prevista" type="date">
+                <constraints nullable="false"/>
+            </column>
+            <column name="data_inicio" type="date">
+                <constraints nullable="false"/>
+            </column>
+            <column name="data_termino" type="date">
+                <constraints nullable="false"/>
+            </column>
+            <column name="tipo" type="varchar(150)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="status" type="varchar(150)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="comentarios" type="text">
+                <constraints nullable="true"/>
+            </column>
+            <column name="responsavel_id" type="int">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="20210628194600-002" author="matheus.jagi">
+        <createSequence
+                sequenceName="seq_tarefa"
+                startValue="1"
+                incrementBy="1" />
+    </changeSet>
+
+    <changeSet id="20210628194600-003" author="matheus.jagi">
+        <addForeignKeyConstraint baseTableName="tarefa"
+                                 baseColumnNames="responsavel_id"
+                                 constraintName="fk_tarefa_responsavel"
+                                 referencedTableName="responsavel"
+                                 referencedColumnNames="id"/>
+    </changeSet>
+</databaseChangeLog>
