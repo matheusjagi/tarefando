@@ -1,0 +1,9 @@
+application:
+  minio:
+    username: tarefando
+    password: tarefando
+    bucker: documents
+    url: http://localhost:9000
+
+server:
+  port: 8081
