@@ -1,0 +1,7 @@
+version: '2'
+services:
+  postgresql:
+    extends:
+      file: postgresql.yaml
+      service: postgresql
+    container_name: postgresql

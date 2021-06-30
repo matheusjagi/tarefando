@@ -1,0 +1,9 @@
+version: '2'
+services:
+  postgresql:
+    image: postgres:11.5
+    environment:
+      - POSTGRES_USER=tarefando
+      - POSTGRES_PASSWORD=tarefando
+    ports:
+      - 5432:5432
