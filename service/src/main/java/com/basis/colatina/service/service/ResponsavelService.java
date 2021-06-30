@@ -3,7 +3,6 @@ package com.basis.colatina.service.service;
 import com.basis.colatina.service.domain.Responsavel;
 import com.basis.colatina.service.repository.ResponsavelRepository;
 import com.basis.colatina.service.service.dto.ResponsavelDTO;
-import com.basis.colatina.service.service.feign.DocumentClient;
 import com.basis.colatina.service.service.mapper.ResponsavelMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -17,10 +16,10 @@ public class ResponsavelService {
 
     private final ResponsavelRepository responsavelRepository;
     private final ResponsavelMapper responsavelMapper;
-    private final DocumentClient documentClient;
+//    private final DocumentClient documentClient;
 
     public List<ResponsavelDTO> getAll(){
-        System.out.println(documentClient.upload());
+//        System.out.println(documentClient.upload());
         List<Responsavel> responsaveis = responsavelRepository.findAll();
         return responsavelMapper.toDto(responsaveis);
     }
