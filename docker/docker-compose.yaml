@@ -5,3 +5,8 @@ services:
       file: postgresql.yaml
       service: postgresql
     container_name: postgresql
+  minio:
+    extends:
+      file: minio.yml
+      service: minio
+    container_name: minio

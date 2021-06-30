@@ -28,5 +28,9 @@ spring:
     liquibase:
         change-log: classpath:/config/liquibase/master.xml
         drop-first: true
+feign:
+    name: document
+    url: http://localhost:8081
 server:
     port: 8080
+
