@@ -2,11 +2,13 @@ package com.basis.colatina.service.service.dto;
 
 import lombok.Getter;
 import lombok.Setter;
+
+import java.io.Serializable;
 import java.time.LocalDate;
 
 @Getter
 @Setter
-public class ResponsavelDTO {
+public class ResponsavelDTO implements Serializable {
 
     private Long id;
 
@@ -14,7 +16,7 @@ public class ResponsavelDTO {
 
     private String email;
 
-    private LocalDate data_nascimento;
+    private LocalDate dataNascimento;
 
     private boolean situacao;
 }

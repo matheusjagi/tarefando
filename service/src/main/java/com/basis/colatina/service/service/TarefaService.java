@@ -3,8 +3,10 @@ package com.basis.colatina.service.service;
 import com.basis.colatina.service.domain.Tarefa;
 import com.basis.colatina.service.repository.TarefaRepository;
 import com.basis.colatina.service.service.dto.TarefaDTO;
+import com.basis.colatina.service.service.event.TarefaEvent;
 import com.basis.colatina.service.service.mapper.TarefaMapper;
 import lombok.RequiredArgsConstructor;
+import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
@@ -15,7 +17,10 @@ import java.util.List;
 public class TarefaService {
 
     private final TarefaRepository tarefaRepository;
+
     private final TarefaMapper tarefaMapper;
+
+    private final ApplicationEventPublisher applicationEventPublisher;
 
     public List<TarefaDTO> getAll(){
         List<Tarefa> tarefas = tarefaRepository.findAll();
@@ -31,6 +36,7 @@ public class TarefaService {
     public TarefaDTO save(TarefaDTO tarefaDTO){
         Tarefa tarefa = tarefaMapper.toEntity(tarefaDTO);
         tarefaRepository.save(tarefa);
+        applicationEventPublisher.publishEvent(new TarefaEvent(tarefa.getId()));
         return tarefaMapper.toDto(tarefa);
     }
 

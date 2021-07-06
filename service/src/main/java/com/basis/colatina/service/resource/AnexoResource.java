@@ -2,7 +2,6 @@ package com.basis.colatina.service.resource;
 
 import com.basis.colatina.service.service.AnexoService;
 import com.basis.colatina.service.service.dto.AnexoDTO;
-import com.basis.colatina.service.service.dto.TarefaDTO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -13,7 +12,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
 import java.util.List;
 
 @RestController
@@ -35,8 +33,15 @@ public class AnexoResource {
     }
 
     @PostMapping
-    public ResponseEntity<AnexoDTO> save(@RequestBody AnexoDTO anexoDTO){
-        return new ResponseEntity<>(anexoService.save(anexoDTO), HttpStatus.CREATED);
+    public ResponseEntity<Void> save(@RequestBody AnexoDTO anexoDTO){
+        anexoService.save(anexoDTO);
+        return new ResponseEntity<>(HttpStatus.CREATED);
+    }
+
+    @PostMapping("/save-all")
+    public ResponseEntity<Void> saveAll(@RequestBody List<AnexoDTO> anexosDTO){
+        anexoService.saveAll(anexosDTO);
+        return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
     @DeleteMapping("/{id}")

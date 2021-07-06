@@ -34,16 +34,16 @@ public class Tarefa implements Serializable {
     private String descricao;
 
     @Column(name = "data_inicio_prevista")
-    private LocalDate data_inicio_prevista;
+    private LocalDate dataInicioPrevista;
 
     @Column(name = "data_termino_prevista")
-    private LocalDate data_termino_prevista;
+    private LocalDate dataTerminoPrevista;
 
     @Column(name = "data_inicio")
-    private LocalDate data_inicio;
+    private LocalDate dataInicio;
 
     @Column(name = "data_termino")
-    private LocalDate data_termino;
+    private LocalDate dataTermino;
 
     @Column(name = "tipo")
     private String tipo;

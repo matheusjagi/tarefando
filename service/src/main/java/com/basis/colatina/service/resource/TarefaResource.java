@@ -1,6 +1,8 @@
 package com.basis.colatina.service.resource;
 
+import com.basis.colatina.service.service.AnexoService;
 import com.basis.colatina.service.service.TarefaService;
+import com.basis.colatina.service.service.dto.TarefaAnexosDTO;
 import com.basis.colatina.service.service.dto.TarefaDTO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -21,6 +23,8 @@ public class TarefaResource {
 
     private final TarefaService tarefaService;
 
+    private final AnexoService anexoService;
+
     @GetMapping
     public ResponseEntity<List<TarefaDTO>> getAll(){
         List<TarefaDTO> tarefas = tarefaService.getAll();
@@ -33,8 +37,11 @@ public class TarefaResource {
     }
 
     @PostMapping
-    public ResponseEntity<TarefaDTO> save(@RequestBody TarefaDTO tarefaDTO){
-        return new ResponseEntity<>(tarefaService.save(tarefaDTO), HttpStatus.CREATED);
+    public ResponseEntity<Void> save(@RequestBody TarefaAnexosDTO tarefaAnexosDTO){
+        TarefaDTO tarefaDTO = tarefaService.save(tarefaAnexosDTO.getTarefaDTO());
+        tarefaAnexosDTO.getAnexosDTO().forEach(anexo -> anexo.setTarefaId(tarefaDTO.getId()));
+        anexoService.saveAll(tarefaAnexosDTO.getAnexosDTO());
+        return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
     @DeleteMapping("/{id}")

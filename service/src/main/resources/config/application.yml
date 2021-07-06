@@ -27,7 +27,7 @@ spring:
             hibernate.generate_statistics: false
     liquibase:
         change-log: classpath:/config/liquibase/master.xml
-        drop-first: true
+#        drop-first: true
 feign:
     name: document
     url: http://localhost:8081

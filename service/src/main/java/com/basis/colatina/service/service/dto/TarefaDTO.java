@@ -2,11 +2,14 @@ package com.basis.colatina.service.service.dto;
 
 import lombok.Getter;
 import lombok.Setter;
+
+import java.io.Serializable;
 import java.time.LocalDate;
+import java.util.List;
 
 @Getter
 @Setter
-public class TarefaDTO {
+public class TarefaDTO implements Serializable {
 
     private Long id;
 
@@ -14,19 +17,17 @@ public class TarefaDTO {
 
     private String descricao;
 
-    private LocalDate data_inicio_prevista;
+    private LocalDate dataInicioPrevista;
 
-    private LocalDate data_termino_prevista;
+    private LocalDate dataTerminoPrevista;
 
-    private LocalDate data_inicio;
+    private LocalDate dataInicio;
 
-    private LocalDate data_termino;
+    private LocalDate dataTermino;
 
     private String tipo;
 
     private String status;
 
-    private String comentarios;
-
-    private Long idResponsavel;
+    private Long responsavelId;
 }

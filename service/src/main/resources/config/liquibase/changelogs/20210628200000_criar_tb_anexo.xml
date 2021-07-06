@@ -12,7 +12,7 @@
             <column name="titulo" type="varchar(100)">
                 <constraints nullable="false"/>
             </column>
-            <column name="hash" type="blob">
+            <column name="hash" type="text">
                 <constraints nullable="false" unique="true"/>
             </column>
             <column name="tamanho" type="int">

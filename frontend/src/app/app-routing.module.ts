@@ -1,11 +1,14 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { DiarioErrosComponent } from './components/diario-erros/diario-erros.component';
-import { LoginSuccessComponent } from '@nuvem/angular-base';
 
 const routes: Routes = [
-    { path: 'diario-erros', component: DiarioErrosComponent, data: { breadcrumb: 'Diário de Erros'} },
-    { path: 'login-success', component: LoginSuccessComponent }
+    {
+        path: '', children: [
+            { path: '', redirectTo: 'tarefas', pathMatch: 'full' },
+            { path: 'tarefas', loadChildren: () => import('./modules/tarefa/tarefa.module').then(m => m.TarefaModule) },
+            { path: 'responsaveis', loadChildren: () => import('./modules/responsavel/responsavel.module').then(m => m.ResponsavelModule) }
+        ]
+    }
 ];
 
 @NgModule({

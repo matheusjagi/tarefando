@@ -31,7 +31,7 @@ public class Responsavel implements Serializable {
     private String email;
 
     @Column(name = "data_nascimento")
-    private LocalDate data_nascimento;
+    private LocalDate dataNascimento;
 
     @Column(name = "situacao")
     private boolean situacao;

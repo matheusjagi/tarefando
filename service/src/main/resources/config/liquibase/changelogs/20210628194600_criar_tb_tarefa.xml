@@ -21,12 +21,8 @@
             <column name="data_termino_prevista" type="date">
                 <constraints nullable="false"/>
             </column>
-            <column name="data_inicio" type="date">
-                <constraints nullable="false"/>
-            </column>
-            <column name="data_termino" type="date">
-                <constraints nullable="false"/>
-            </column>
+            <column name="data_inicio" type="date"></column>
+            <column name="data_termino" type="date"></column>
             <column name="tipo" type="varchar(150)">
                 <constraints nullable="false"/>
             </column>

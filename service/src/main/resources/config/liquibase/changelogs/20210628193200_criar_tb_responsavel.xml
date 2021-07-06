@@ -18,7 +18,7 @@
             <column name="data_nascimento" type="date">
                 <constraints nullable="false"/>
             </column>
-            <column name="situacao" type="varchar(100)">
+            <column name="situacao" type="boolean">
                 <constraints nullable="false"/>
             </column>
         </createTable>

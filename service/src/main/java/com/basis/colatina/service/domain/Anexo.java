@@ -30,7 +30,7 @@ public class Anexo implements Serializable {
     private String titulo;
 
     @Column(name = "hash")
-    private byte[] hash;
+    private String hash;
 
     @Column(name = "tamanho")
     private Long tamanho;
