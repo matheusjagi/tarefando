@@ -9,4 +9,5 @@ export class TarefaModel {
     tipo?: string;
     status?: string;
     responsavelId?: number;
+    nomeResponsavel?: string;
 }

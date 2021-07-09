@@ -33,7 +33,6 @@ export class TarefaComponent implements OnInit {
         protected notification: PageNotificationService,
         protected tarefaService: TarefaService,
         protected responsavelService: ResponsavelService,
-        protected anexoService: AnexoService
     ) { }
 
     ngOnInit() {
@@ -50,6 +49,7 @@ export class TarefaComponent implements OnInit {
             dataInicioPrevista: [null, [Validators.required]],
             dataTerminoPrevista: [null, [Validators.required]],
             dataInicio: [null, [Validators.required]],
+            dataTermino: [null, [Validators.required]],
             tipo: [null, [Validators.required]],
             status: [null, [Validators.required]],
             responsavelId: [null, [Validators.required]],
@@ -74,38 +74,34 @@ export class TarefaComponent implements OnInit {
         );
     }
 
-    generateDocument(file) {
-        const reader = new FileReader();
+    upload(event) {
+        const files = event.originalEvent.target.files;
 
-        console.log('reader reult: ', reader.result);
+        for (const file of files) {
+            const reader = new FileReader();
+            reader.readAsDataURL(file);
+            reader.onloadend = () => {
+                const blob: any = reader.result;
 
-        reader.onload = () => {
-            let blob: any = reader.result;
+                this.anexo = new AnexoModel();
+                this.anexo.id = null;
+                this.anexo.titulo = file.name;
+                this.anexo.hash = null;
+                this.anexo.conteudo = blob.split(',')[1];
+                this.anexo.tamanho = file.size;
+                this.anexo.tipo = file.type;
+                this.anexo.tarefaId = null;
 
-            this.anexo = new AnexoModel();
-            this.anexo.id = null;
-            this.anexo.titulo = file.name;
-            this.anexo.hash = null;
-            this.anexo.conteudo = blob.split(',')[1];
-            this.anexo.tamanho = file.size;
-            this.anexo.tipo = file.type;
-            this.anexo.tarefaId = null;
-
-            this.files.push(this.anexo);
+                this.files.push(this.anexo);
+            };
         }
-
-        reader.readAsDataURL(file);
     }
 
     save() {
-        this.fileUpload.files.forEach(file => {
-            this.generateDocument(file);
-        });
-
         this.tarefa.tarefaDTO = this.form.getRawValue();
         this.tarefa.anexosDTO = this.files;
 
-        this.tarefaService.save(this.files)
+        this.tarefaService.save(this.tarefa)
             .pipe(finalize(() => {
                 this.form.reset();
                 this.getAllTarefas();
