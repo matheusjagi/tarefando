@@ -38,11 +38,18 @@ public class AnexoService {
         return anexoMapper.toDto(anexo);
     }
 
+    public AnexoDTO saveReturn(AnexoDTO anexoDTO){
+        Anexo anexo = anexoMapper.toEntity(anexoDTO);
+        anexo.setHash(documentClient.save(new DocumentDTO(anexo.getHash(), anexoDTO.getConteudo())));
+        anexoRepository.save(anexo);
+        applicationEventPublisher.publishEvent(new AnexoEvent(anexo.getId()));
+        return anexoMapper.toDto(anexo);
+    }
+
     public void save(AnexoDTO anexoDTO){
         Anexo anexo = anexoMapper.toEntity(anexoDTO);
-        anexo.setHash(UUID.randomUUID().toString());
+        anexo.setHash(documentClient.save(new DocumentDTO(anexo.getHash(), anexoDTO.getConteudo())));
         anexoRepository.save(anexo);
-        documentClient.save(new DocumentDTO(anexoDTO.getHash(), anexoDTO.getConteudo()));
         applicationEventPublisher.publishEvent(new AnexoEvent(anexo.getId()));
     }
 

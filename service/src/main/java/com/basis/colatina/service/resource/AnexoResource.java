@@ -38,6 +38,12 @@ public class AnexoResource {
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
+    @PostMapping("/teste")
+    public ResponseEntity<Void> saveTeste(@RequestBody AnexoDTO anexoDTO){
+        anexoService.saveReturn(anexoDTO);
+        return new ResponseEntity<>(HttpStatus.CREATED);
+    }
+
     @PostMapping("/save-all")
     public ResponseEntity<Void> saveAll(@RequestBody List<AnexoDTO> anexosDTO){
         anexoService.saveAll(anexosDTO);

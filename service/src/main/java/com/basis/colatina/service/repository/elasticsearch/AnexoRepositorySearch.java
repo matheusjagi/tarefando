@@ -1,7 +1,11 @@
 package com.basis.colatina.service.repository.elasticsearch;
 
 import com.basis.colatina.service.domain.elasticsearch.AnexoDocument;
-import org.springframework.data.elasticsearch.repository.ElasticsearchRepository;
 
-public interface AnexoRepositorySearch extends ElasticsearchRepository<AnexoDocument, Long> {
+public interface AnexoRepositorySearch extends BaseElasticsearchRepository<AnexoDocument, Long> {
+
+    @Override
+    default Class<AnexoDocument> getEntityRepository() {
+        return AnexoDocument.class;
+    }
 }

@@ -1,10 +1,14 @@
 package com.basis.colatina.service.resource;
 
-import com.basis.colatina.service.service.AnexoService;
 import com.basis.colatina.service.service.TarefaService;
 import com.basis.colatina.service.service.dto.TarefaAnexosDTO;
 import com.basis.colatina.service.service.dto.TarefaDTO;
+import com.basis.colatina.service.service.dto.TarefaListagemDTO;
+import com.basis.colatina.service.service.elasticsearch.TarefaElasticsearchService;
+import com.basis.colatina.service.service.filter.TarefaFilter;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -23,11 +27,17 @@ public class TarefaResource {
 
     private final TarefaService tarefaService;
 
-    private final AnexoService anexoService;
+    private final TarefaElasticsearchService tarefaElasticsearchService;
+
+    @GetMapping("/search")
+    public ResponseEntity<Page<TarefaListagemDTO>> search(@RequestBody TarefaFilter filter, Pageable pageable){
+        Page<TarefaListagemDTO> page = tarefaElasticsearchService.search(filter, pageable);
+        return new ResponseEntity<>(page, HttpStatus.OK);
+    }
 
     @GetMapping
-    public ResponseEntity<List<TarefaDTO>> getAll(){
-        List<TarefaDTO> tarefas = tarefaService.getAll();
+    public ResponseEntity<List<TarefaListagemDTO>> getAll(){
+        List<TarefaListagemDTO> tarefas = tarefaService.getAll();
         return new ResponseEntity<>(tarefas, HttpStatus.OK);
     }
 
@@ -38,9 +48,13 @@ public class TarefaResource {
 
     @PostMapping
     public ResponseEntity<Void> save(@RequestBody TarefaAnexosDTO tarefaAnexosDTO){
-        TarefaDTO tarefaDTO = tarefaService.save(tarefaAnexosDTO.getTarefaDTO());
-        tarefaAnexosDTO.getAnexosDTO().forEach(anexo -> anexo.setTarefaId(tarefaDTO.getId()));
-        anexoService.saveAll(tarefaAnexosDTO.getAnexosDTO());
+        tarefaService.save(tarefaAnexosDTO);
+        return new ResponseEntity<>(HttpStatus.CREATED);
+    }
+
+    @PostMapping("/teste")
+    public ResponseEntity<Void> saveTarefa(@RequestBody TarefaDTO tarefaDTO){
+        tarefaService.saveTarefa(tarefaDTO);
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
