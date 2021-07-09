@@ -21,9 +21,8 @@ public class DocumentResource {
     private final DocumentService documentService;
 
     @PostMapping
-    public ResponseEntity<Void> save(@RequestBody DocumentDTO documentDTO){
-        documentService.saveDocument(documentDTO);
-        return new ResponseEntity<>(HttpStatus.CREATED);
+    public ResponseEntity<String> save(@RequestBody DocumentDTO documentDTO){
+        return new ResponseEntity<>(documentService.saveDocument(documentDTO), HttpStatus.CREATED);
     }
 
     @GetMapping("/{uuid}")

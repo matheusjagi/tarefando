@@ -17,7 +17,7 @@ public interface DocumentClient {
     DocumentDTO getByUUID(@PathVariable("uuid") String uuid);
 
     @PostMapping
-    void save(@RequestBody DocumentDTO documentDTO);
+    String save(@RequestBody DocumentDTO documentDTO);
 
     @DeleteMapping("/{uuid}")
     void remove(@PathVariable("uuid") String uuid);
