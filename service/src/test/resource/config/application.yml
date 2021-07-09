@@ -1,0 +1,19 @@
+spring:
+  application:
+    name: service
+  profiles:
+    active: test
+  h2:
+    console:
+      enabled: true
+      path: /h2
+  datasource:
+    url: jdbc:h2:mem:tarefando;INIT=RUNSCRIPT FROM 'classpath:/config/h2/init.sql';
+    username: tarefando
+    password: tarefando
+server:
+  port: 8080
+
+application:
+  feign:
+    documento: http://localhost:8081
