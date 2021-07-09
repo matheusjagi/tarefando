@@ -9,7 +9,6 @@ import org.springframework.data.elasticsearch.annotations.Field;
 import org.springframework.data.elasticsearch.annotations.FieldType;
 import org.springframework.data.elasticsearch.annotations.InnerField;
 import org.springframework.data.elasticsearch.annotations.MultiField;
-
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
@@ -50,9 +49,9 @@ public class TarefaDocument extends BaseDocument{
             otherFields = {@InnerField(suffix = SORT, type = FieldType.Text, store = true)})
     private String status;
 
-    private String nomeResponsavel;
+    private Long responsavelId;
 
-    public TarefaDocument(Long id, String titulo, LocalDate dataInicioPrevista, LocalDate dataTerminoPrevista, LocalDate dataInicio, LocalDate dataTermino, String tipo, String status, String nomeResponsavel) {
+    public TarefaDocument(Long id, String titulo, LocalDate dataInicioPrevista, LocalDate dataTerminoPrevista, LocalDate dataInicio, LocalDate dataTermino, String tipo, String status, Long responsavelId) {
         super(id);
         this.titulo = titulo;
         this.dataInicioPrevista = dataInicioPrevista.format(DateTimeFormatter.ofPattern(DATE_PATTERN));
@@ -61,6 +60,6 @@ public class TarefaDocument extends BaseDocument{
         this.dataTermino = dataTermino.format(DateTimeFormatter.ofPattern(DATE_PATTERN));
         this.tipo = tipo;
         this.status = status;
-        this.nomeResponsavel = nomeResponsavel;
+        this.responsavelId = responsavelId;
     }
 }
